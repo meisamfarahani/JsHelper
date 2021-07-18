@@ -488,5 +488,5 @@ var jsHelper = {
             }
             return succeed;
         }
-    }
+    },
 }
