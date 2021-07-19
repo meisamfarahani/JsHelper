@@ -5,6 +5,8 @@
  >  https://meisamfarahani.ir
  */
 
+/*const { func } = require("prop-types");*/
+
 // Extensions
 
 if (!String.prototype.trimEnd)
@@ -126,7 +128,7 @@ var jsHelper = {
      * @param {string}  find   The string to be replaced.
      * @param {string}  replace The string to replace all occurrences of 'find'.
      */
-    replaceAllString(input, find, replace) {
+    replaceAllString: function (input, find, replace) {
         try {
             return input.replace(new RegExp(find, "gi"), replace);
         } catch (ex) { return input; }
@@ -138,7 +140,7 @@ var jsHelper = {
      * @param {string} key  Url Parameter Title
      * @param {string} [query] Url Search Section (default=window.location.search)
      */
-    getUrlParamEncoded(key, query = window.location.search) {
+    getUrlParamEncoded: function (key, query = window.location.search) {
         var re = new RegExp("[?|&]" + key + "=(.*?)&");
         var matches = re.exec(query + "&");
         if (!matches || matches.length < 2)
@@ -153,7 +155,7 @@ var jsHelper = {
      * @param {string} key  Url Parameter Value
      * @param {string} [query] Url Search Section (default=window.location.search)
      */
-    setUrlParamEncoded(key, value, query = window.location.search) {
+    setUrlParamEncoded: function (key, value, query = window.location.search) {
         var q = query + "&";
         var re = new RegExp("[?|&]" + key + "=.*?&");
         if (!re.test(q))
@@ -170,11 +172,11 @@ var jsHelper = {
      * @param {number} min  The inclusive lower bound of the random number returned.
      * @param {number} max  The exclusive upper bound of the random number returned. max must be greater than or equal to min.
      */
-    getRandomInt(min, max) {
+    getRandomInt: function (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     },
 
-    supportViewportUnits() {
+    supportViewportUnits: function () {
         var div = document.createElement("DIV");
         div.id = 'supportViewportUnits';
         div.setAttribute('style', 'height:0;width:100vw;position:absolute;z-index:-1')
@@ -191,7 +193,7 @@ var jsHelper = {
         return result;
     },
 
-    getMobileOS() {
+    getMobileOS: function () {
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
         // Windows Phone must come first because its UA also contains "Android"
@@ -220,9 +222,9 @@ var jsHelper = {
         return 'unknown';
     },
 
-    iOSversion() {
+    iOSversion: function () {
 
-        if (getMobileOS() == 'iOS') {
+        if (this.getMobileOS() == 'iOS') {
             var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
             return parseFloat([parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)]);
         }
@@ -230,7 +232,7 @@ var jsHelper = {
         return 0;
     },
 
-    viewport() {
+    viewport: function () {
         var e = window, a = 'inner';
         if (!('innerWidth' in window)) {
             a = 'client';
@@ -239,7 +241,7 @@ var jsHelper = {
         return { width: e[a + 'Width'], height: e[a + 'Height'] };
     },
 
-    getPersianDigit(input) {
+    getPersianDigit: function (input) {
         var inputS = input.toString();
         if (inputS.length > 0) {
             var fardigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -252,7 +254,7 @@ var jsHelper = {
         return input;
     },
 
-    getEnglishDigit(input, removeLetters, integer, signed, eventType) {
+    getEnglishDigit: function (input, removeLetters, integer, signed, eventType) {
         var inputS = input.toString();
         if (inputS.length > 0) {
             removeLetters = removeLetters || false;
@@ -306,7 +308,7 @@ var jsHelper = {
         return input;
     },
 
-    getAllIndexes(array, value) {
+    getAllIndexes: function (array, value) {
         var indexes = [];
         for (var i = 0; i < array.length; i++) {
             if (array[i] === value)
@@ -316,11 +318,11 @@ var jsHelper = {
     },
 
     //  shuffles elements of an input array
-    shuffle(arrayToShuffle) {
+    shuffle: function (arrayToShuffle) {
         if (arrayToShuffle != null && arrayToShuffle.length > 0) {
             var j, x, i = 0;
             for (i = arrayToShuffle.length; i; i--) {
-                j = getRandomInt(0, arrayToShuffle.length - 1);
+                j = this.getRandomInt(0, arrayToShuffle.length - 1);
                 x = arrayToShuffle[i - 1];
                 arrayToShuffle[i - 1] = arrayToShuffle[j];
                 arrayToShuffle[j] = x;
@@ -330,7 +332,7 @@ var jsHelper = {
     },
 
     // seperates numbers every three digits
-    getCurrencyFormat(number, separator) {
+    getCurrencyFormat: function (number, separator) {
         try {
             separator = separator || ',';
             if (number != null) {
@@ -343,7 +345,7 @@ var jsHelper = {
         }
     },
 
-    setCookie(name, value, expireSeconds) {
+    setCookie: function (name, value, expireSeconds) {
         try {
             if (name != null && name.length > 0) {
                 var d = new Date();
@@ -359,7 +361,7 @@ var jsHelper = {
         return false;
     },
 
-    getCookie(name) {
+    getCookie: function (name) {
         try {
             if (name != null && name.length > 0) {
                 name += '=';
@@ -383,7 +385,7 @@ var jsHelper = {
         return '';
     },
 
-    deleteCookie(name) {
+    deleteCookie: function (name) {
         try {
             if (name != null && name.length > 0) {
                 document.cookie = name + '=;' + 'expires=Wed; 01 Jan 1970';
@@ -394,7 +396,7 @@ var jsHelper = {
         return false;
     },
 
-    isInIframe() {
+    isInIframe: function () {
         try {
             return window.self !== window.top;
         } catch (e) {
@@ -402,7 +404,7 @@ var jsHelper = {
         }
     },
 
-    getListEvents(dom) {
+    getListEvents: function (dom) {
         var result = [];
         for (var key in dom) {
             if (key.indexOf('on') === 0) {
@@ -412,7 +414,7 @@ var jsHelper = {
         return result.join(' ');
     },
 
-    getThumbUrl(input, thumbWidth, thumbHeight) {
+    getThumbUrl: function (input, thumbWidth, thumbHeight) {
         input = input || '';
         thumbWidth = thumbWidth || 0;
         thumbHeight = thumbHeight || 0;
@@ -435,7 +437,7 @@ var jsHelper = {
         return (result + "/" + thumbSize.toString() + fileName);
     },
 
-    copyToClipboard(elem) {
+    copyToClipboard: function (elem) {
 
         if (elem) {
             // create hidden text element, if it doesn't already exist
