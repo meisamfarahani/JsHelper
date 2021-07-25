@@ -120,6 +120,15 @@ window.CustomEvent = CustomEvent;
 
 // End: Extensions
 
+// add/remove 'notActive' class to body on wondow focus/blur 
+window.addEventListener('focus', function () {
+    this.document.body.classList.remove('notActive');
+});
+window.addEventListener('blur', function () {
+    this.document.body.classList.add('notActive');
+});
+
+
 if (!jsHelper)
     var jsHelper = {
         /**
